@@ -3,9 +3,10 @@ import requests
 import pandas as pd
 import io
 import json
+import os
 
 # --- Configuration ---
-API_BASE_URL = "http://localhost:8000"
+API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
 
 # --- THEME COLORS ---
 SHL_PRIMARY_BLUE = "#0077B5"
