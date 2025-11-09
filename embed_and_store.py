@@ -18,22 +18,19 @@ df.columns = [c.strip().lower().replace(" ", "_") for c in df.columns]
 
 # Combine key fields into one searchable text
 def combine_text(row):
-    parts = [
+    # Only include semantically meaningful content for embedding
+    semantic_parts = [
         f"Assessment Name: {row.get('assessment_name', '')}",
-        f"URL: {row.get('url', '')}",
         f"Description: {row.get('description', '')}",
         f"Job Levels: {row.get('job_levels', '')}",
-        f"Length: {row.get('assessment_length_(mins)', '')} mins",
-        f"Remote Testing: {row.get('remote_testing', '')}",
-        f"Adaptive/IRT: {row.get('adaptive/irt_support', '')}",
-        f"Test Type: {row.get('test_type', '')}",
+        f"Test Type: {row.get('test_type', '')}"
     ]
-    return " | ".join(str(p) for p in parts if p)
+    return " | ".join(str(p) for p in semantic_parts if p)
 
 df["combined_text"] = df.apply(combine_text, axis=1)
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
-embed_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+model = SentenceTransformer("BAAI/bge-base-en-v1.5")
+embed_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="BAAI/bge-base-en-v1.5")
 
 client = chromadb.PersistentClient(path=PERSIST_DIR)
 collection = client.create_collection(name=COLLECTION_NAME, embedding_function=embed_fn)
