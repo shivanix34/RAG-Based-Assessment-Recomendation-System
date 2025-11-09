@@ -264,7 +264,11 @@ with tab1:
 with tab2:
     st.write("##### Batch process multiple queries")
     st.info("Upload an Excel (.xlsx) or CSV file with a column named 'Query'.")
-    uploaded_file = st.file_uploader("", type=['csv', 'xlsx'], label_visibility="collapsed")
+    uploaded_file = st.file_uploader(
+        "Upload File",
+        type=["csv", "xlsx"],
+        label_visibility="collapsed"
+    )
 
     if uploaded_file is not None:
         if st.button("Process Batch", key="file_btn"):

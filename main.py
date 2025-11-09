@@ -20,7 +20,9 @@ app = FastAPI(title="SHL Assessment Recommendation API")
 # crucial for allowing your Streamlit frontend to talk to this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://assessment-recomendation-frontend.onrender.com/"],
+    allow_origins=[
+    "https://assessment-recomendation-frontend.onrender.com",
+    "https://assessment-recomendation-backend.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
