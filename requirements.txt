@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-multipart
+streamlit
+pandas
+openpyxl
+requests
+beautifulsoup4
+selenium
+google-generativeai
+chromadb
+sentence-transformers
+python-dotenv
+nltk
+numpy
+pydantic
+google-genai
