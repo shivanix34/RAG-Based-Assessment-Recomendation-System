@@ -8,12 +8,23 @@ from typing import List, Optional, Dict, Any, Union
 from fastapi import FastAPI, HTTPException, File, UploadFile, Form
 from fastapi.responses import StreamingResponse, JSONResponse
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 
 from rag_core import get_recommendations
 from job_rag_new import fetch_job_description, extract_skills_llm
 
 app = FastAPI(title="SHL Assessment Recommendation API")
+
+# --- CORS Middleware ---
+# crucial for allowing your Streamlit frontend to talk to this API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://assessment-recomendation-frontend.onrender.com/"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class RecommendRequest(BaseModel):
     query: str
